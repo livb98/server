@@ -5,7 +5,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
-app.get("/api/:name", (req, res) => {
+app.get("/api/:number", (req, res) => {
   res.json({
     message: `Hello ${req.params.name}, from server! MY_NAME => ${process.env.NUMBER}`,
   });
