@@ -1,5 +1,4 @@
 import {db} from '../config/config.js'
-import express from 'express'
 
 export const _getAll = async() => {
     try {
