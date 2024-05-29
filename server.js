@@ -13,4 +13,4 @@ app.listen(process.env.PORT || 3001, () => {
   console.log(`Server listening on ${process.env.PORT || 3001}`);
 });
 
-app.use('/', usersRouter)
+app.use('/users', usersRouter)
