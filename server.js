@@ -9,8 +9,8 @@ const app = express();
 app.use(cors());
 
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`Server listening on ${process.env.PORT || 3001}`);
+app.listen(process.env.PGPORT || 3001, () => {
+  console.log(`Server listening on ${process.env.PGPORT || 3001}`);
 });
 
 app.use('/users', usersRouter)
