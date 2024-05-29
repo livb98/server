@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 import jwt from 'jsonwebtoken'
 dotenv.config();
 
-const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY } = process.env
+// const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY } = process.env
 
-export const getAll = async() => {
+export const getAll = async(req,res) => {
     try {
-        const users = await all()
+        const users = await _getAll()
         res.json(users)
 
     } catch (error) {
