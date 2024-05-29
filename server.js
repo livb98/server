@@ -12,8 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(process.env.PGPORT || 3001, () => {
-  console.log(`Server listening on ${process.env.PGPORT || 3001}`);
+// app.listen(process.env.PGPORT || 3001, () => {
+//   console.log(`Server listening on ${process.env.PGPORT || 3001}`);
+// });
+app.listen(3001, () => {
+  console.log("Server is running on port 3001");
 });
 
 

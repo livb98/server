@@ -1,0 +1,21 @@
+import jwt from "jsonwebtoken"
+
+const expTime = Math.floor(Date.now() / 1000) 
+
+// token
+const token = jwt.sign(
+    {id: 12, email: "jjj@gmail.com", name: "John" },
+    "123456",
+    {
+        expiresIn: expTime
+    }
+)
+
+const mytoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiampqQGdtYWlsLmNvbSIsIm5hbWUiOiJKb2huIiwiaWF0IjoxNzE2NzkzMzUwLCJleHAiOjE3MTY4NTMzNTB9.k5zegTphr5pfZ0I_A9nBBxpXqG-aFmKnufXZf8nXd7I"
+
+// verify (token, secret, (err, decode) => {})
+jwt.verify(mytoken, "123456", (err, decode) => {
+    if (err) return console.log(err.message);
+    console.log(new Date(decode.exp).toLocaleString())
+    // console.log(new Date(decode.iat).toLocaleString());
+})
