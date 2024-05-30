@@ -2,7 +2,7 @@ import {db} from '../config/config.js'
 
 export const _getAll = async() => {
     try {
-        const test = await db('test')
+        const test = await db('users')
         .select('*')
 
         return test
@@ -13,18 +13,32 @@ export const _getAll = async() => {
       }
 }
 
-export const _register = async() => {
+export const _register = async({fname,lname,username,date_birth, password}) => {
   try {
     const [user] = await db("users")
-    .insert({ fname,lname,username,date_birth }, [
-      "id",
+    .insert({ fname,lname,username,date_birth, password }, [
       "fname",
       "lname",
       "username",
-      "date_birth"
+      "date_birth",
+      "password"
     ]);
   } catch(err) {
     console.log(`error in _register => ${err}`);
-    throw new Error('login failed')
+    throw new Error('register failed')
+  }
+}
+
+export const _login = async(username) => {
+    try {
+      const user = db('users')
+      .select('user_id', 'username', 'password')
+      .where({username})
+      .first()
+      return user || null
+
+  } catch(error) {
+      console.log('error _login => ', error);
+      throw new Error('login failed')
   }
 }

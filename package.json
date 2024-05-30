@@ -20,6 +20,7 @@
     "gitignore": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
+    "password-hash": "^1.2.2",
     "path": "^0.12.7",
     "pg": "^8.11.5"
   }
