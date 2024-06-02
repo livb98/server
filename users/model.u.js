@@ -14,7 +14,7 @@ export const _getAllUsers = async() => {
 export const _getUser = async(id) => {
   try {
     const username = await db('users')
-    .select('user_id')
+    .select('*')
     .where({user_id:id})
     return username
 

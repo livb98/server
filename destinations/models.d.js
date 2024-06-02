@@ -45,7 +45,7 @@ export const _getDestinationsByUser = async(user_id) => {
 export const _getUserByDestination = async (country) => {
     try {
         const users = await db('users')
-            .select('users.user_id', 'users.username', 'destination.country')
+            .select('*')
             .innerJoin('destination', 'users.user_id', 'destination.fk_user_id')
             .where( 'country', country);
 
