@@ -12,5 +12,6 @@ export const verifiedToken = (req, res, next) => {
         req.userid = decode.id
         req.useremail = decode.email
         next()
+        console.log(accesstoken);
     })
 }

@@ -1,4 +1,4 @@
-import { _getAll, _register, _login } from './model.js'
+import { _getAllUsers, _getUser, _register, _login } from './model.u.js'
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from 'jsonwebtoken'
@@ -6,7 +6,7 @@ dotenv.config();
 
 const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY } = process.env
 
-export const getAll = async(req,res) => {
+export const getAllUsers = async(req,res) => {
     try {
         const users = await _getAll()
         res.json(users)
@@ -17,12 +17,23 @@ export const getAll = async(req,res) => {
     }
 }
 
+export const getUser = async(req,res) => {
+    const {id} = req.params
+    try {
+        const username = await _getUser(id)
+        res.json(username)
+    } catch(error) {
+        console.log(`error user cont ${error}`);
+        res.status(404).json({msg:'not found'})
+    }
+
+}
+
 export const Register = async(req,res) => {
     const {fname,lname,username,date_birth, password} = req.body
     try {
         const lowfname = fname.toLowerCase();
         const lowlname = lname.toLowerCase();
-
         const salt = bcrypt.genSaltSync(10);
         const hashpassword = bcrypt.hashSync(password + "", salt);
         const newuser = await _register({
@@ -34,6 +45,7 @@ export const Register = async(req,res) => {
         });
         res.json(newuser);
 
+
     } catch(error) {
         console.log(`error register cont  => ${error}`);
         res.status(404).json({msg:'not found register'})
@@ -44,7 +56,7 @@ export const Login = async(req,res) => {
     try{
         const {username,password} = req.body
         const user = await _login(username)
-        if (!user) return res.status(404).json({msg: 'email not found'})
+        if (!user) return res.status(404).json({msg: 'user not found'})
         const isMatch = bcrypt.compareSync(password+'', user.password)
         if (!isMatch) return res.status(404).json({msg: 'wrong password'})
 
