@@ -6,8 +6,9 @@ import jwt from 'jsonwebtoken'
 dotenv.config();
 
 export const getAllDestinations = async(req,res) => {
+    const { country } = req.params;
     try {
-        const destinations = await _getAllDestinations()
+        const destinations = await _getAllDestinations(country)
         res.json(destinations)
 
     } catch (error) {
@@ -66,4 +67,4 @@ export const getUserByDestination = async (req, res) => {
         console.log(`Error in getUserByDestination: ${error}`);
         res.status(404).json({ msg: 'Not found' });
     }
-};
+}

@@ -1,10 +1,11 @@
 import { db } from "../config/config.js";
 
-export const _getAllDestinations = async() => {
+export const _getAllDestinations = async(country) => {
     try {
         const test = await db('destination')
         .select('*')
-
+        .innerJoin('destination', 'users.user_id', 'destination.fk_user_id')
+        .where({country:country});
         return test
     
       } catch (err) {

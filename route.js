@@ -11,7 +11,7 @@ router.post('/users/register', Register);
 router.post('/users/login', Login);
 router.get('/users/:id', getUser);
 
-router.get('/destinations', getAllDestinations);
+router.get('/destinations/users/country', getAllDestinations);
 router.post('/destination/add/:user_id', addDestination); 
 router.get('/destinations/:user_id', getDestinationsByUser)
 router.get('/destinations/:user_id/:country',getUserByDestination)
