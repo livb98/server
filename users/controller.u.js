@@ -8,7 +8,7 @@ const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY } = process.env
 
 export const getAllUsers = async(req,res) => {
     try {
-        const users = await _getAll()
+        const users = await _getAllUsers()
         res.json(users)
 
     } catch (error) {

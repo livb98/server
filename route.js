@@ -11,7 +11,7 @@ router.post('/users/login', Login);
 router.get('/users/:id', getUser);
 
 router.get('/destinations', getAllDestinations);
-router.post('/destination/add/:user_id', addDestination); 
+router.post('/destination/add/:user_id', verifiedToken, addDestination); 
 router.get('/destinations/:user_id', getDestinationsByUser)
 router.get('/destinations/users/:country',getUserByDestination)
 
