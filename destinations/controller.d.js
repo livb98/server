@@ -8,12 +8,11 @@ dotenv.config();
 export const getAllDestinations = async(req,res) => {
     const { country } = req.params;
     try {
-        const destinations = await _getAllDestinations(country)
-        res.json(destinations)
-
+        const users = await _getAllDestinations(country);
+        res.json(users);
     } catch (error) {
-        console.log(`error cont => ${error}`);
-        res.status(404).json({msg:'not found'})
+        console.log(`Error in getall: ${error}`);
+        res.status(404).json({ msg: 'Not found' });
     }
 }
 

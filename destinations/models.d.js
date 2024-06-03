@@ -2,16 +2,16 @@ import { db } from "../config/config.js";
 
 export const _getAllDestinations = async(country) => {
     try {
-        const test = await db('destination')
-        .select('*')
-        .innerJoin('destination', 'users.user_id', 'destination.fk_user_id')
-        .where({country:country});
-        return test
-    
-      } catch (err) {
-        console.log('error in all => ', err);
-        throw new Error('login failed')
-      }
+        const users = await db('users')
+            .select('*')
+            .innerJoin('destination', 'users.user_id', 'destination.fk_user_id')
+            .where({country:country});
+
+        return users;
+    } catch (error) {
+        console.log(`Error in _getDestination: ${error}`);
+        throw new Error('Get failed');
+    }
 }
 
 export const _addDestination = async ({ country, date_arrived, date_depart, place_visit, fk_user_id }) => {
