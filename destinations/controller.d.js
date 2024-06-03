@@ -24,10 +24,11 @@ export const addDestination = async (req, res) => {
         const lowcountry = country.toLowerCase(); 
         const new_date_arrived = new Date(date_arrived).toISOString().slice(0, 11).replace('T', ' ');
         const new_date_depart = new Date(date_depart).toISOString().slice(0, 11).replace('T', ' ');
+        if (new Date(new_date_depart) <= new Date(new_date_arrived)) {
+            return res.status(400).json({ msg: 'Departure date must be after arrival date' });
+        }
         const newdestination = await _addDestination({
             country: lowcountry,
-            // date_arrived,
-            // date_depart,
             date_arrived: new_date_arrived,
             date_depart: new_date_depart,
             place_visit: place_visit, 
