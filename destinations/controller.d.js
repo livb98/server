@@ -24,6 +24,9 @@ export const addDestination = async (req, res) => {
         const lowcountry = country.toLowerCase(); 
         const new_date_arrived = new Date(date_arrived).toISOString().slice(0, 11).replace('T', ' ');
         const new_date_depart = new Date(date_depart).toISOString().slice(0, 11).replace('T', ' ');
+        if (new_date_arrived < today) {
+            return res.status(400).json({ msg: 'Arrival date must be at least today' });
+        }
         if (new Date(new_date_depart) <= new Date(new_date_arrived)) {
             return res.status(400).json({ msg: 'Departure date must be after arrival date' });
         }
