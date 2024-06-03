@@ -22,12 +22,14 @@ export const addDestination = async (req, res) => {
     
     try {
         const lowcountry = country.toLowerCase(); 
-        const new_date_arrived = new Date(date_arrived).toISOString().slice(0, 11).replace('T', ' ');
-        const new_date_depart = new Date(date_depart).toISOString().slice(0, 11).replace('T', ' ');
+        // const new_date_arrived = new Date(date_arrived).toISOString().slice(0, 11).replace('T', ' ');
+        // const new_date_depart = new Date(date_depart).toISOString().slice(0, 11).replace('T', ' ');
         const newdestination = await _addDestination({
             country: lowcountry,
-            date_arrived: new_date_arrived,
-            date_depart: new_date_depart,
+            date_arrived,
+            date_depart,
+            // date_arrived: new_date_arrived,
+            // date_depart: new_date_depart,
             place_visit: place_visit, 
             fk_user_id: user_id
         });

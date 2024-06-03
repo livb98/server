@@ -22,6 +22,7 @@ export const _addDestination = async ({ country, date_arrived, date_depart, plac
                 'date_depart',
                 'place_visit',
                 'fk_user_id'
+            
             ]);
         return destination;
     } catch (err) {
