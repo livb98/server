@@ -20,10 +20,12 @@ export const addDestination = async (req, res) => {
     const { user_id } = req.params;
     const { country, date_arrived, date_depart, place_visit } = req.body;
     
+    
     try {
         const lowcountry = country.toLowerCase(); 
         const new_date_arrived = new Date(date_arrived).toISOString().slice(0, 11).replace('T', ' ');
         const new_date_depart = new Date(date_depart).toISOString().slice(0, 11).replace('T', ' ');
+        const today = new Date().toISOString().slice(0, 10); 
         if (new_date_arrived < today) {
             return res.status(400).json({ msg: 'Arrival date must be at least today' });
         }
