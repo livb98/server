@@ -14,7 +14,7 @@ router.get('/users/:id', getUser);
 router.get('/destinations', getAllDestinations);
 router.post('/destination/add/:user_id', addDestination); 
 router.get('/destinations/:user_id', getDestinationsByUser)
-router.get('/destinations/users/:country',getUserByDestination)
+router.get('/destinations/:user_id/:country',getUserByDestination)
 
 router.get('/chat/:user_id1/:user_id2',getChat)
 

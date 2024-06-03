@@ -43,12 +43,12 @@ export const _getDestinationsByUser = async(user_id) => {
       }
 }
 
-export const _getUserByDestination = async (country) => {
+export const _getUserByDestination = async (user_id,country) => {
     try {
         const users = await db('users')
             .select('*')
             .innerJoin('destination', 'users.user_id', 'destination.fk_user_id')
-            .where( 'country', country);
+            .where({country:country, fk_user_id:user_id});
 
         return users;
     } catch (error) {

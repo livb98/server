@@ -58,9 +58,9 @@ export const getDestinationsByUser = async(req,res) => {
 }
 
 export const getUserByDestination = async (req, res) => {
-    const { country } = req.params;
+    const { user_id,country } = req.params;
     try {
-        const users = await _getUserByDestination(country);
+        const users = await _getUserByDestination(user_id,country);
         res.json(users);
     } catch (error) {
         console.log(`Error in getUserByDestination: ${error}`);
