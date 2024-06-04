@@ -42,7 +42,7 @@ export const Register = async(req,res) => {
           username: username,
           date_birth: date_birth,
           password: hashpassword,
-        });
+        })
         res.json(newuser);
 
 
