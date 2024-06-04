@@ -16,7 +16,7 @@ router.post('/destination/add/:user_id', addDestination);
 router.get('/destinations/:user_id', getDestinationsByUser)
 router.get('/destinations/:user_id/:country',getUserByDestination)
 
-router.get('/chat/:user_id1/:user_id2',getChat)
+router.get('/chat/users/:user_id1/:user_id2',getChat)
 router.post('/chat/:user_id1/:user_id2', sendMessage)
 
 router.get('/verify', verifiedToken, (req, res) => {
