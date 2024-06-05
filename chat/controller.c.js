@@ -1,4 +1,4 @@
-import { _sendMessage, _getAllChat, _getChat } from "./model.c.js";
+import { _sendMessage, _getAllChat, _getChat, _newChat } from "./model.c.js";
 import { getUser } from "../users/controller.u.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -38,3 +38,14 @@ export const sendMessage = async (req, res) => {
         res.status(404).json({ msg: 'not found' });
     }
 };
+
+export const newChat = async(req,res) => {
+    const {fk_user1, fk_user2} = req.body
+    try {
+        const newchat = await _newChat({fk_user1,fk_user2})
+        res.json(newchat)
+    } catch(error) {
+        console.log(`send msg cont => ${error}`);
+        res.status(404).json({ msg: 'not found' });
+    }
+}

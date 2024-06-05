@@ -2,7 +2,7 @@ import express from "express";
 import { getAllUsers, Register, Login, getUser } from './users/controller.u.js';
 import { getAllDestinations, addDestination, getDestinationsByUser, getUserByDestination } from "./destinations/controller.d.js";
 import { verifiedToken } from "./middlewares/verifiedToken.js";
-import {  sendMessage, getAllChat, getChat } from "./chat/controller.c.js";
+import {  sendMessage, getAllChat, getChat, newChat } from "./chat/controller.c.js";
 
 const router = express.Router();
 
@@ -20,6 +20,9 @@ router.get('/destinations/:user_id/:country',getUserByDestination)
 router.post('/chat/:chat_id/:sender_id', sendMessage)
 router.get('/chat/:chat_id',getChat)
 router.get('/chat/users/:user_id', getAllChat)
+router.post('/chat/:user1_id/:user2_id', newChat)
+
+
 router.get('/verify', verifiedToken, (req, res) => {
     res.sendStatus(200);
 });

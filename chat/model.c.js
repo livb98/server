@@ -59,3 +59,18 @@ export const _sendMessage = async({chat_id, sender_id, message}) => {
         throw new Error('send msg failed');
     }
 }
+
+export const _newChat = async({fk_user1,fk_user2}) => {
+    try{
+        const newchat = await db('chat')
+        .insert({fk_user1,fk_user2}, [
+            'fk_user1',
+            'fk_user2'
+        ])
+        return newchat
+
+    }catch(error) {
+        console.log(`error create new chat ${error}`);
+        throw new Error('new chat failed');
+    }
+}
