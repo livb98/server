@@ -28,17 +28,13 @@ export const getAllChat = async(req,res) => {
     }
 }
 
-
-export const sendMessage = async(req,res) => {
-    const {user_id1,user_id2} = req.params
-    const {message} = req.body
+export const sendMessage = async (req, res) => {
+    const {  chat_id, sender_id,message } = req.body;
     try {
-        const chat = await _sendMessage({message,
-            fk_user1:user_id1,
-            fk_user2:user_id2})
-        res.json(chat)
+        const chat = await _sendMessage({ chat_id, sender_id, message });
+        res.json(chat);
     } catch (error) {
         console.log(`send msg cont => ${error}`);
-        res.status(404).json({msg:'not found'})
+        res.status(404).json({ msg: 'not found' });
     }
-}
+};
