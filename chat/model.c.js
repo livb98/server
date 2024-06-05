@@ -45,13 +45,13 @@ export const _getAllChat = async (user_id) => {
 };
 
 
-export const _sendMessage = async({message, fk_user1, fk_user2}) => {
+export const _sendMessage = async({chat_id, sender_id, message}) => {
     try {
-        const chat = await db('chat')
-        .insert({message, fk_user1, fk_user2}, [
-            'message',
-            'fk_user1',
-            'fk_user2'
+        const chat = await db('message')
+        .insert({chat_id, sender_id, message}, [
+            'chat_id',
+            'sender_id',
+            'message'
         ])
         return chat
     } catch (error) {
