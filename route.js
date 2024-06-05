@@ -18,7 +18,7 @@ router.get('/destinations/:user_id/:country',getUserByDestination)
 
 
 router.post('/chat/:chat_id/:sender_id', sendMessage)
-router.get('/chat/:chat_id',getChat)
+router.get('/chat/:chat_id/:sender_id',getChat)
 router.get('/chat/users/:user_id', getAllChat)
 router.post('/chat/:user1_id/:user2_id', newChat)
 
