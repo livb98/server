@@ -1,31 +1,35 @@
 import { db } from "../config/config.js";
 
-export const _getChat = async (chat_id, sender_id, user2_id) => {
+export const _getChat = async (chat_id, sender_id, getmsg_id) => {
     try {
         const chat = await db('message as m')
             .select('c.chat_id',
                     'm.msg_id',
                     'm.message',
                     'u1.username as user1_username', 
-                    'u1.user_id as user1_id',
                     'u2.username as user2_username', 
-                    'u2.user_id as user2_id')
+                    "m.sender_id",
+                    'm.getmsg_id')
             .join('chat as c', 'c.chat_id', '=', 'm.chat_id')
             .join('users as u1', 'c.fk_user1', '=', 'u1.user_id')
             .join('users as u2', 'c.fk_user2', '=', 'u2.user_id')
             .where('m.chat_id', chat_id)
-            .andWhere('c.fk_user1', sender_id)
-            .andWhere('c.fk_user2', user2_id)
-
-
-;
+            .andWhere(function() {
+                this.where(function() {
+                    this.where('m.sender_id', sender_id)
+                        .andWhere('m.getmsg_id', getmsg_id);
+                }).orWhere(function() {
+                    this.where('m.sender_id', getmsg_id)
+                        .andWhere('m.getmsg_id', sender_id);
+                });
+            })
+            .orderBy('m.msg_id');
         return chat;
     } catch (error) {
         console.error(`Error fetching chat ${error}`);
         throw new Error('Failed to fetch chat');
     }
 };
-
 
 export const _getAllChat = async (user_id) => {
     try {
