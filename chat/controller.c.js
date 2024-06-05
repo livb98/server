@@ -5,17 +5,6 @@ import dotenv from "dotenv";
 import jwt from 'jsonwebtoken'
 dotenv.config();
 
-export const getAllChat = async(req,res) => {
-    const { user_id } = req.params;
-    try {
-        const chatDetails = await _getAllChat(user_id);
-        res.json(chatDetails);
-    } catch (error) {
-        console.log(`Chat details controller error => ${error}`);
-        res.status(404).json({ msg: 'Not found' });
-    }
-}
-
 export const getChat = async(req,res) =>{
     const {chat_id} = req.params
     try {
@@ -27,6 +16,18 @@ export const getChat = async(req,res) =>{
         res.status(404).json({msg:'not found'})
     }
 }
+
+export const getAllChat = async(req,res) => {
+    const { user_id } = req.params;
+    try {
+        const chatDetails = await _getAllChat(user_id);
+        res.json(chatDetails);
+    } catch (error) {
+        console.log(`Chat details controller error => ${error}`);
+        res.status(404).json({ msg: 'Not found' });
+    }
+}
+
 
 export const sendMessage = async(req,res) => {
     const {user_id1,user_id2} = req.params
