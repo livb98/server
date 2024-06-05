@@ -20,7 +20,7 @@ router.get('/destinations/:user_id/:country',getUserByDestination)
 router.post('/chat/:chat_id/:sender_id', sendMessage)
 router.get('/chat/users/:user_id', getAllChat)
 router.get('/chat/:chat_id/:sender_id', getChat);
-router.post('/chat/:user1_id/:user2_id', newChat)
+router.post('/chat/new/:user1_id/:user2_id', newChat)
 
 
 router.get('/verify', verifiedToken, (req, res) => {
