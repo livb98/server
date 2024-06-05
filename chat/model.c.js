@@ -1,6 +1,6 @@
 import { db } from "../config/config.js";
 
-export const _getChat = async (chat_id, sender_id, user2_id) => {
+export const _getChat = async (chat_id, user1_id, user2_id) => {
     try {
         const chat = await db('message as m')
             .select('c.chat_id',
@@ -14,11 +14,22 @@ export const _getChat = async (chat_id, sender_id, user2_id) => {
             .join('users as u1', 'c.fk_user1', '=', 'u1.user_id')
             .join('users as u2', 'c.fk_user2', '=', 'u2.user_id')
             .where('m.chat_id', chat_id)
+            // .andWhere(function() {
+            //     this.where('m.sender_id', sender_id)
+            //     .andWhere('u2.user_id', user2_id);
+            // })
             .andWhere(function() {
-                this.where('m.sender_id', sender_id)
-                .orWhere('u2.user_id', user2_id);
-            })
-            .orderBy('m.msg_id');
+                this.where(function() {
+                    this.where('m.sender_id', user1_id)
+                        .andWhere(function() {
+                            this.where('u1.user_id', user2_id).orWhere('u2.user_id', user2_id);
+                        });
+                }).orWhere(function() {
+                    this.where('m.sender_id', user2_id)
+                        .andWhere(function() {
+                            this.where('u1.user_id', user1_id).orWhere('u2.user_id', user1_id);
+                        })
+            .orderBy('m.msg_id')})});
         return chat;
     } catch (error) {
         console.error(`Error fetching chat ${error}`);

@@ -7,9 +7,9 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 export const getChat = async (req, res) => {
-    const { chat_id, sender_id, user2_id } = req.params;
+    const { chat_id, user1_id, user2_id } = req.params;
     try {
-        const chat = await _getChat(chat_id, sender_id, user2_id);
+        const chat = await _getChat(chat_id, user1_id, user2_id);
         res.json(chat);
     } catch (error) {
         console.log(`Chat controller error => ${error}`);
