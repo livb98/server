@@ -17,7 +17,7 @@ router.get('/destinations/:user_id', getDestinationsByUser)
 router.get('/destinations/:user_id/:country',getUserByDestination)
 
 
-router.post('/chat/:user_id1/:user_id2', sendMessage)
+router.post('/chat/:user1_id/:user2_id', sendMessage)
 router.get('/chat/:chat_id',getChat)
 router.get('/chat/users/:user_id', getAllChat)
 router.get('/verify', verifiedToken, (req, res) => {
