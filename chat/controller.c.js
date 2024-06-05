@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 dotenv.config();
 
 export const getChat = async(req,res) =>{
-    const {chat_id} = req.params
+    const {chat_id, sender_id} = req.params
     try {
         const chat = await _getChat(chat_id)
         res.json(chat)
