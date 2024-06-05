@@ -45,7 +45,7 @@
 // };
 import { db } from "../config/config.js";
 
-export const _getChat = async (chat_id) => {
+export const _getChat = async (chat_id, sender_id) => {
     try {
         const chat = await db('message as m')
             .select('c.chat_id',
@@ -60,6 +60,7 @@ export const _getChat = async (chat_id) => {
             .join('users as u1', 'c.fk_user1', '=', 'u1.user_id')
             .join('users as u2', 'c.fk_user2', '=', 'u2.user_id')
             .where('m.chat_id', chat_id)
+            .andWhere('m.sender_id', sender_id)
             .orderBy('m.msg_id');
         return chat;
     } catch (error) {

@@ -1,32 +1,3 @@
-// import { _sendMessage, _getAllChat, _getChat, _newChat } from "./model.c.js";
-// import { getUser } from "../users/controller.u.js";
-// import bcrypt from "bcrypt";
-// import dotenv from "dotenv";
-// import jwt from 'jsonwebtoken'
-// dotenv.config();
-
-// export const getChat = async(req,res) =>{
-//     const {chat_id, sender_id} = req.params
-//     try {
-//         const chat = await _getChat(chat_id)
-//         res.json(chat)
-
-//     } catch (error) {
-//         console.log(`chat cont => ${error}`);
-//         res.status(404).json({msg:'not found'})
-//     }
-// }
-
-// export const getAllChat = async(req,res) => {
-//     const { user_id } = req.params;
-//     try {
-//         const chatDetails = await _getAllChat(user_id);
-//         res.json(chatDetails);
-//     } catch (error) {
-//         console.log(`Chat details controller error => ${error}`);
-//         res.status(404).json({ msg: 'Not found' });
-//     }
-// }
 import { _sendMessage, _getAllChat, _getChat, _newChat } from "./model.c.js";
 import { getUser } from "../users/controller.u.js";
 import bcrypt from "bcrypt";
@@ -35,11 +6,10 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-// Function to get a specific chat's messages
 export const getChat = async (req, res) => {
-    const { chat_id, sender_id } = req.params;
+    const { chat_id, sender_id, user2_id } = req.params;
     try {
-        const chat = await _getChat(chat_id);
+        const chat = await _getChat(chat_id, sender_id);
         res.json(chat);
     } catch (error) {
         console.log(`Chat controller error => ${error}`);
@@ -47,7 +17,6 @@ export const getChat = async (req, res) => {
     }
 }
 
-// Function to get all chat details for a specific user
 export const getAllChat = async (req, res) => {
     const { user_id } = req.params;
     try {
