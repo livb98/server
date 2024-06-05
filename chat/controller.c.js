@@ -29,9 +29,9 @@ export const getAllChat = async (req, res) => {
 }
 
 export const sendMessage = async (req, res) => {
-    const {  chat_id, sender_id,message } = req.body;
+    const {  chat_id, sender_id,getmsg_id,message } = req.body;
     try {
-        const chat = await _sendMessage({ chat_id, sender_id, message });
+        const chat = await _sendMessage({ chat_id, sender_id,getmsg_id, message });
         res.json(chat);
     } catch (error) {
         console.log(`send msg cont => ${error}`);
