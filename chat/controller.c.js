@@ -44,12 +44,13 @@ export const sendMessage = async (req, res) => {
 };
 
 export const newChat = async(req,res) => {
+    const {chat_id} = req.params
     const {fk_user1, fk_user2} = req.body
     try {
         const newchat = await _newChat({fk_user1,fk_user2})
         res.json(newchat)
     } catch(error) {
-        console.log(`send msg cont => ${error}`);
+        console.log(`new chat cont => ${error}`);
         res.status(404).json({ msg: 'not found' });
     }
 }
