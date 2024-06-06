@@ -32,7 +32,11 @@ export const sendMessage = async (req, res) => {
     const {  chat_id, sender_id,getmsg_id,message } = req.body;
     try {
         const chat = await _sendMessage({ chat_id, sender_id,getmsg_id, message });
-        res.json(chat);
+        // res.json(chat);
+        req.params.chat_id = chat_id
+        req.params.sender_id = sender_id
+        req.params.getmsg_id = getmsg_id
+        getChat(req,res)
     } catch (error) {
         console.log(`send msg cont => ${error}`);
         res.status(404).json({ msg: 'not found' });
