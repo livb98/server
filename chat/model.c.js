@@ -6,7 +6,9 @@ export const _getChat = async (chat_id, sender_id, getmsg_id) => {
             .select('c.chat_id',
                     'm.msg_id',
                     'm.message',
+                    'u1.username as user1_id', 
                     'u1.username as user1_username', 
+                    'u2.username as user2_id', 
                     'u2.username as user2_username', 
                     "m.sender_id",
                     'm.getmsg_id')
