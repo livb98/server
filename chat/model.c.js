@@ -77,6 +77,7 @@ export const _newChat = async({fk_user1,fk_user2}) => {
             'fk_user1',
             'fk_user2'
         ])
+
         return newchat
 
     }catch(error) {
