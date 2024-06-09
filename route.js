@@ -28,4 +28,5 @@ router.get('/verify', verifiedToken, (req, res) => {
     res.sendStatus(200);
 });
 
+
 export default router;
