@@ -19,37 +19,6 @@ export const getAllUsers = async(req,res) => {
     }
 }
 
-// export const getUser = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { password } = req.body;
-
-//         const user = await _getUser(id);
-//         if (!user) return res.status(404).json({ msg: 'User not found' });
-
-//         const hashedPassword = user.password || user[0]?.password; 
-//         if (!hashedPassword) return res.status(500).json({ msg: 'User has no password stored' });
-
-//         const isMatch = bcrypt.compareSync(password, hashedPassword);
-//         if (!isMatch) return res.status(401).json({ msg: 'Invalid password' });
-
-//         const accessToken = jwt.sign(
-//             { id: user.id, username: user.username },
-//             hashedPassword,
-//             { expiresIn: '1h' }
-//         );
-
-//         res.cookie('token', accessToken, {
-//             httpOnly: true,
-//             maxAge: 60 * 60 * 1000, 
-//         });
-
-//         res.json({ token: accessToken, user: user });
-//     } catch (error) {
-//         console.error('Error in getUser:', error);
-//         res.status(500).json({ msg: 'Internal server error' });
-//     }
-// };
 const {ACCESS_TOKEN_SECRET} = process.env
 
 export const getUser = async (req, res) => {
@@ -60,7 +29,7 @@ export const getUser = async (req, res) => {
         const user = await _getUser(id);
         if (!user) return res.status(404).json({ msg: 'User not found' });
 
-        const isMatch = bcrypt.compareSync(password, user[0].password);
+        const isMatch = bcrypt.compareSync(password, user.password);
         if (!isMatch) return res.status(404).json({ msg: 'Wrong password' });
 
         const accessToken = jwt.sign(
