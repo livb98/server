@@ -9,6 +9,7 @@ const expTime = Math.floor(currentDate / 60 * 1000 )
 export const verifiedToken = (req, res, next) => {
     const accesstoken = req.cookies.token || req.headers['x-access-token']
     console.log(accesstoken);
+    console.log(ACCESS_TOKEN_SECRET);
     if(!accesstoken) return res.status(403).json({msg: 'unauthorized'})
     jwt.verify(accesstoken, ACCESS_TOKEN_SECRET , (err, decode) => {
         if(err) return res.status(404).json({msg: 'forbiden'})

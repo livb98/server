@@ -31,7 +31,6 @@ export const getUser = async (req, res) => {
 
         const isMatch = bcrypt.compareSync(password, user.password);
         if (!isMatch) return res.status(404).json({ msg: 'Wrong password' });
-
         const accessToken = jwt.sign(
             { id: user.id, username: user.username },
             ACCESS_TOKEN_SECRET, 
@@ -100,4 +99,3 @@ export const Login = async (req, res) => {
         res.status(404).json({ msg: "login failed" });
     }
 };
-console.log('ACCESS_TOKEN_SECRET:',ACCESS_TOKEN_SECRET);
