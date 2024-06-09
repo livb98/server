@@ -22,10 +22,10 @@ export const getAllUsers = async(req,res) => {
 export const getUser = async(req,res) => {
     const {id} = req.params
     try {
-        const username = await _getUser(id)
+        const user = await _getUser(id)
         const accessToken = jwt.sign(
             { id: user.id, username: user.username },
-            username.password, 
+            user.password, 
             { expiresIn: expTime } 
         );
 
@@ -35,7 +35,7 @@ export const getUser = async(req,res) => {
             maxAge: 60 * 100000
         })
 
-        res.json({token: accessToken, username:username})
+        res.json({token: accessToken, user:user})
         
     } catch(error) {
         console.log(`error user cont ${error}`);
