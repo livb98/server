@@ -16,7 +16,7 @@ export const _getUser = async(id) => {
     const username = await db('users')
     .select('*')
     .where({user_id:id})
-    return username
+    return username || null
 
   }catch(error) {
     console.log(`error in getUser model ${error}`);
