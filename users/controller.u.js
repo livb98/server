@@ -21,7 +21,19 @@ export const getUser = async(req,res) => {
     const {id} = req.params
     try {
         const username = await _getUser(id)
-        res.json(username)
+        const accesstoken = jwt.sign(
+            {id: user.id, username: user.username},
+            ACCESS_TOKEN_SECRET,
+            {expiresIn: '1d'} 
+        )
+
+        res.cookie('token', accesstoken, {
+            httpOnly: true,
+            maxAge: 60 * 10000
+        })
+
+        res.json({token: accesstoken, username:username})
+        // res.json(username)
     } catch(error) {
         console.log(`error user cont ${error}`);
         res.status(404).json({msg:'not found'})
