@@ -25,7 +25,7 @@ export const getUser = async(req,res) => {
         const username = await _getUser(id)
         const accessToken = jwt.sign(
             { id: user.id, username: user.username },
-            user.password, 
+            username.password, 
             { expiresIn: expTime } 
         );
 
