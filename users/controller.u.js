@@ -29,7 +29,7 @@ export const getUser = async(req,res) => {
 
         res.cookie('token', accesstoken, {
             httpOnly: true,
-            maxAge: 60 * 10000
+            maxAge: 60 * 100000
         })
 
         res.json({token: accesstoken, username:username})
