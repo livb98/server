@@ -23,20 +23,20 @@ export const getUser = async(req,res) => {
     const {id} = req.params
     try {
         const username = await _getUser(id)
-        const accesstoken = jwt.sign(
-            {id: user.id, username: user.username},
-            ACCESS_TOKEN_SECRET,
-            {expiresIn:expTime}
-            // {expiresIn: '1d'} 
-        )
+        const accessToken = jwt.sign(
+            { id: user.id, username: user.username },
+            user.password, 
+            { expiresIn: expTime } 
+        );
 
-        res.cookie('token', accesstoken, {
+
+        res.cookie('token', accessToken, {
             httpOnly: true,
             maxAge: 60 * 100000
         })
 
         res.json({token: accesstoken, username:username})
-        // res.json(username)
+        
     } catch(error) {
         console.log(`error user cont ${error}`);
         res.status(404).json({msg:'user not found'})
@@ -67,33 +67,6 @@ export const Register = async(req,res) => {
     }
 }
 
-// export const Login = async(req,res) => {
-//     try{
-//         const {username,password} = req.body
-//         const user = await _login(username)
-//         if (!user) return res.status(404).json({msg: 'user not found'})
-//         const isMatch = bcrypt.compareSync(password+'', user.password)
-//         if (!isMatch) return res.status(404).json({msg: 'wrong password'})
-
-//         const accesstoken = jwt.sign(
-//             {id: user.id, username: user.username},
-//             user.password,
-//             // {expiresIn: '1d'} 
-//             {expiresIn:expTime}
-//         )
-
-//         res.cookie('token', accesstoken, {
-//             httpOnly: true,
-//             maxAge: 60 * 10000
-//         })
-
-//         res.json({token: accesstoken, user:user})
-
-//     } catch (error) {
-//         console.log("login=>", error);
-//         res.status(404).json({ msg: "login failed" });
-//     }
-// }
 export const Login = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -103,11 +76,11 @@ export const Login = async (req, res) => {
         const isMatch = bcrypt.compareSync(password + '', user.password);
         if (!isMatch) return res.status(404).json({ msg: 'wrong password' });
 
-        // Use the dynamically calculated expiration time
+        
         const accessToken = jwt.sign(
             { id: user.id, username: user.username },
-            user.password, // Use user's password as the secret
-            { expiresIn: expTime } // Use expTime for expiration
+            user.password, 
+            { expiresIn: expTime } 
         );
 
         res.cookie('token', accessToken, {
