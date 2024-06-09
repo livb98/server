@@ -35,7 +35,7 @@ export const getUser = async(req,res) => {
             maxAge: 60 * 100000
         })
 
-        res.json({token: accesstoken, username:username})
+        res.json({token: accessToken, username:username})
         
     } catch(error) {
         console.log(`error user cont ${error}`);
