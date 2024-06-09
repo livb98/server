@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/users', verifiedToken, getAllUsers);
 router.post('/users/register', Register);
 router.post('/users/login', Login);
-router.get('/users/:id', getUser);
+router.get('/users/:id', verifiedToken, getUser);
 
 router.get('/destinations/users/:country', getAllDestinations);
 router.post('/destination/add/:user_id', addDestination); 
