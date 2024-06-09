@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken'
 dotenv.config();
 
 const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY } = process.env
+const currentDate = new Date();
+currentDate.setHours(23, 59, 59, 999);
+const expTime = Math.floor(currentDate / 60 * 100 ) 
 
 export const getAllUsers = async(req,res) => {
     try {
@@ -24,7 +27,8 @@ export const getUser = async(req,res) => {
         const accesstoken = jwt.sign(
             {id: user.id, username: user.username},
             ACCESS_TOKEN_SECRET,
-            {expiresIn: '1d'} 
+            {expiresIn:expTime}
+            // {expiresIn: '1d'} 
         )
 
         res.cookie('token', accesstoken, {
@@ -75,8 +79,10 @@ export const Login = async(req,res) => {
         const accesstoken = jwt.sign(
             {id: user.id, username: user.username},
             ACCESS_TOKEN_SECRET,
-            {expiresIn: '1d'} 
+            // {expiresIn: '1d'} 
+            {expiresIn:expTime}
         )
+        console.log(expTime);
 
         res.cookie('token', accesstoken, {
             httpOnly: true,

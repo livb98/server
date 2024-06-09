@@ -1,6 +1,12 @@
 import jwt from "jsonwebtoken"
 
-const expTime = Math.floor(Date.now() / 1000) 
+
+const currentDate = new Date();
+
+currentDate.setHours(23, 59, 59, 999);
+console.log(currentDate);
+
+const expTime = Math.floor(currentDate / 60 * 1000 ) 
 
 const token = jwt.sign(
     {id: 12, email: "jjj@gmail.com", name: "John" },

@@ -1,8 +1,11 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config()
+const currentDate = new Date();
+const {ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY} = process.env
 
-const {ACCESS_TOKEN_SECRET} = process.env
+const expTime = Math.floor(currentDate / 60 * 1000 ) 
+
 
 export const verifiedToken = (req, res, next) => {
     const accesstoken = req.cookies.token || req.headers['x-access-token']
