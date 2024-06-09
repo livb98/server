@@ -19,36 +19,19 @@ export const getAllUsers = async(req,res) => {
     }
 }
 
-const {ACCESS_TOKEN_SECRET} = process.env
-
-export const getUser = async (req, res) => {
+export const getUser = async(req,res) => {
+    const {id} = req.params
     try {
-        const { id } = req.params;
-        const { password } = req.body;
+        const user = await _getUser(id)
 
-        const user = await _getUser(id);
-        if (!user) return res.status(404).json({ msg: 'User not found' });
-
-        const isMatch = bcrypt.compareSync(password, user.password);
-        if (!isMatch) return res.status(404).json({ msg: 'Wrong password' });
-        const accessToken = jwt.sign(
-            { id: user.id, username: user.username },
-            ACCESS_TOKEN_SECRET, 
-            { expiresIn: expTime }
-        );
-
-        res.cookie('token', accessToken, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 1000, // 1 hour
-        });
-
-        res.json({ token: accessToken, user: user });
-    } catch (error) {
-        console.error('Error in getUser:', error);
-        res.status(500).json({ msg: 'Internal server error' });
+        res.json(user)
+        
+    } catch(error) {
+        console.log(`error user cont ${error}`);
+        res.status(404).json({msg:'user not found'})
     }
-};
 
+}
 
 export const Register = async(req,res) => {
     const {fname,lname,username,date_birth, password} = req.body
@@ -78,6 +61,7 @@ export const Login = async (req, res) => {
         const { username, password } = req.body;
         const user = await _login(username);
         if (!user) return res.status(404).json({ msg: 'user not found' });
+
         const isMatch = bcrypt.compareSync(password + '', user.password);
         if (!isMatch) return res.status(404).json({ msg: 'wrong password' });
 
